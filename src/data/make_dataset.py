@@ -39,7 +39,7 @@ class mnistDataset(Dataset):
         return len(self.images)
 
 
-def mnist_loader(path="../../corruptmnist", n_files=5, image_scale=255):
+def mnist_loader(path="../../corruptmnist", n_files=8, image_scale=255):
     """
     Loads .npz corruptedmnist, assumes loaded image values to be between 0 and 1
     """

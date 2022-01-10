@@ -7,6 +7,8 @@ of CNN networks on corrupted mnist data from terminal.
 import argparse
 import os
 import sys
+sys.path.append("..")
+print(sys.path)
 
 import matplotlib.pyplot as plt
 import numpy as np
