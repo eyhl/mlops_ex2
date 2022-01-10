@@ -32,8 +32,10 @@ class mnistDataset(Dataset):
         # torch expects (n_samples, channels, height, width)
         if len(x.shape) <= 3:
             x = x[np.newaxis, :, :]
-
-        return torch.from_numpy(x).float(), y
+        if isinstance(x, np.ndarray):
+            x = torch.from_numpy(x)
+            
+        return x.float(), y
 
     def __len__(self):
         return len(self.images)
@@ -69,15 +71,21 @@ def main(input_filepath, output_filepath):
 
     # loading data from .npz files
     train_images, train_labels, test_images, test_labels = mnist_loader(path=input_filepath)
+    
+    # save as tensors
+    torch.save(torch.from_numpy(train_images), os.path.join(output_filepath, "train_images.pt"))
+    torch.save(torch.from_numpy(train_labels), os.path.join(output_filepath, "train_labels.pt"))
+    torch.save(torch.from_numpy(test_images), os.path.join(output_filepath, "test_images.pt"))
+    torch.save(torch.from_numpy(test_labels), os.path.join(output_filepath, "test_labels.pt"))
 
-    # creating train and test torch datasets
-    # TODO: apply transforms
-    train_dataset = mnistDataset(train_images, train_labels)
-    test_dataset = mnistDataset(test_images, test_labels)
+    # # creating train and test torch datasets
+    # # TODO: apply transforms
+    # train_dataset = mnistDataset(train_images, train_labels)
+    # test_dataset = mnistDataset(test_images, test_labels)
 
-    # save datasets as tensors, contains both images and labels
-    torch.save(train_dataset, os.path.join(output_filepath, "train_dataset_processed.pt"))
-    torch.save(test_dataset, os.path.join(output_filepath, "test_dataset_processed.pt"))
+    # # save datasets as tensors, contains both images and labels
+    # torch.save(train_dataset, os.path.join(output_filepath, "train_dataset_processed.pt"))
+    # torch.save(test_dataset, os.path.join(output_filepath, "test_dataset_processed.pt"))
 
 
 if __name__ == "__main__":

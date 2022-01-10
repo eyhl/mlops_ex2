@@ -26,11 +26,11 @@ requirements: test_environment
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
 ## Make Dataset
-data: requirements
+data: 
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
 
 ## Train model, @added by eyhl
-train: requirements
+train: 
 	$(PYTHON_INTERPRETER) src/models/train_model.py train models reports/figures
 
 eval: 

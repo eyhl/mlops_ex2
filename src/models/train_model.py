@@ -56,10 +56,10 @@ class TrainOREvaluate(object):
         model = cnnModel()
         # train_images, train_labels, _, _ = mnist_loader()
 
-        # TODO: conisder adding transform later
-        train_set = torch.load(
-            os.path.join(processed_data_path, "train_dataset_processed.pt")
-        )  # mnistDataset(train_images, train_labels)
+        train_images = torch.load(os.path.join(processed_data_path, 'train_images.pt'))
+        train_labels = torch.load(os.path.join(processed_data_path, 'train_labels.pt'))
+
+        train_set = mnistDataset(train_images, train_labels)
         train_loader = DataLoader(train_set, batch_size=64, shuffle=True)
 
         criterion = torch.nn.NLLLoss()
@@ -103,11 +103,11 @@ class TrainOREvaluate(object):
         model.eval()
 
         criterion = torch.nn.NLLLoss()
-        # _, _, test_images, test_labels = mnist_loader()
+
         # TODO: conisder adding transform later
-        test_set = torch.load(
-            os.path.join(processed_data_path, "test_dataset_processed.pt")
-        )  # test_set = mnistDataset(test_images, test_labels)
+        test_images = torch.load(os.path.join(processed_data_path, 'test_images.pt'))
+        test_labels = torch.load(os.path.join(processed_data_path, 'test_labels.pt'))
+        test_set = mnistDataset(test_images, test_labels)
         test_loader = DataLoader(test_set, batch_size=64, shuffle=True)
 
         with torch.no_grad():
