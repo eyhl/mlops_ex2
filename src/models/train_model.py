@@ -13,7 +13,7 @@ print(sys.path)
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from model import cnnModel, train, validation
+from model import cnnModel, train_loop, validation_loop
 from torch.utils.data.dataloader import DataLoader
 
 from src.data.make_dataset import mnistDataset
@@ -46,7 +46,7 @@ def train():
     criterion = torch.nn.NLLLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.005)
     # TODO: Implement training loop here
-    train_losses = train(
+    train_losses = train_loop(
         model,
         train_loader,
         criterion=criterion,
@@ -58,11 +58,11 @@ def train():
     plt.plot(range(n_epochs), train_losses, color="#4b0082", linewidth=2, alpha=0.8)
     plt.grid()
     plt.title("Training loss per epoch")
-    plt.savefig(os.path.join(args.save_plots_to, "training-loss-per-epoch.png"), dpi=200)
+    plt.savefig(os.path.join(args['save_plots_to'], "training-loss-per-epoch.png"), dpi=200)
     plt.show()
 
     # Save model
-    torch.save(model.state_dict(), os.path.join(args.save_model_to, "checkpoint.pth"))
+    torch.save(model.state_dict(), os.path.join(args['save_model_to'], "checkpoint.pth"))
 
 def evaluate(self):
     print("Evaluating until hitting the ceiling")
@@ -92,7 +92,7 @@ def evaluate(self):
     test_loader = DataLoader(test_set, batch_size=64, shuffle=True)
 
     with torch.no_grad():
-        test_loss, accuracy = validation(model, test_loader, criterion)
+        test_loss, accuracy = validation_loop(model, test_loader, criterion)
 
     print(
         "Test Loss: {:.3f}.. ".format(test_loss / len(test_loader)),

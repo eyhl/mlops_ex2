@@ -66,9 +66,9 @@ class cnnModel(nn.Module):
         self.dropout = nn.Dropout(p=0.3)
 
     def forward(self, x):
-        if x.ndim != 4:
+        if x.ndim != 4: # pragma: no cover
             raise ValueError('Expected input to a 4D tensor')
-        if x.shape[1] != 1 or x.shape[2] != 28 or x.shape[3] != 28:
+        if x.shape[1] != 1 or x.shape[2] != 28 or x.shape[3] != 28: # pragma: no cover
             raise ValueError('Expected each sample to have shape [1, 28, 28]')
         
         # Input shape: torch.Size([64, 1, 28, 28])
@@ -93,7 +93,7 @@ class cnnModel(nn.Module):
         return x
 
 
-def validation(model, testloader, criterion):
+def validation_loop(model, testloader, criterion):
     """
     Returns test loss and accuracy score of a given torch model.
     NOTE: divide outputs with the total number of epochs to get
@@ -126,7 +126,7 @@ def validation(model, testloader, criterion):
     return test_loss, accuracy
 
 
-def train(model, trainloader, criterion, optimizer=None, epochs=5):
+def train_loop(model, trainloader, criterion, optimizer=None, epochs=5):
     if optimizer is None:
         optimizer = Adam(model.parameters(), lr=1e-2)
 

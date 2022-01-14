@@ -22,17 +22,15 @@ class mnistDataset(Dataset):
         x = self.images[index]
         y = self.labels[index]
 
-        if self.transform:
+        if self.transform: # pragma: no cover
             x = Image.fromarray(self.images[index].astype(np.uint8).transpose(1, 2, 0))
             x = self.transform(x)
-        # else:
-        #    x = torch.from_numpy(x)
 
         # if image is greyscale add unit color channel
         # torch expects (n_samples, channels, height, width)
         if len(x.shape) <= 3:
             x = x[np.newaxis, :, :]
-        if isinstance(x, np.ndarray):
+        if isinstance(x, np.ndarray): # pragma: no cover
             x = torch.from_numpy(x)
             
         return x.float(), y
@@ -62,7 +60,7 @@ def mnist_loader(path="../../corruptmnist", n_files=8, image_scale=255):
 @click.command()
 @click.argument("input_filepath", type=click.Path(exists=True))
 @click.argument("output_filepath", type=click.Path())
-def main(input_filepath, output_filepath):
+def main(input_filepath, output_filepath): # pragma: no cover
     """Runs data processing scripts to turn raw data from (../raw) into
     cleaned data ready to be analyzed (saved in ../processed).
     """

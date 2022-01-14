@@ -14,7 +14,7 @@ import argparse
 import sys
 
 import torch
-from model import cnnModel, validation
+from model import cnnModel, validation_loop
 from torch.utils.data.dataloader import DataLoader
 
 from src.data.make_dataset import mnist_loader, mnistDataset
@@ -65,7 +65,7 @@ class PredictPretrainedModel(object):
         test_loader = DataLoader(test_set, batch_size=64, shuffle=True)
 
         with torch.no_grad():
-            test_loss, accuracy = validation(model, test_loader, criterion)
+            test_loss, accuracy = validation_loop(model, test_loader, criterion)
 
         print(
             "Test Loss: {:.3f}.. ".format(test_loss / len(test_loader)),

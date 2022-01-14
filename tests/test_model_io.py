@@ -1,8 +1,23 @@
 import os
 import torch
+import pytest
 from torch.utils.data.dataloader import DataLoader
 from src.models.model import cnnModel
 from src.data.make_dataset import mnistDataset
+
+model = cnnModel()
+@pytest.mark.parametrize(
+    "test_input, expected", 
+    [("model.forward(torch.rand((1, 1, 28, 28))).shape", torch.Size([1, 10])), 
+    ("model.forward(torch.rand((1, 1, 28, 28))).isnan().all().item()", False)]
+    )
+def test_model_architecture(test_input, expected):
+    '''
+    test model io and if nans are produced
+    '''
+    msg = "Either model outputs wrong shape or nans"
+    assert eval(test_input) == expected, msg
+
 
 def test_model_input_output_shapes(model=cnnModel(), data_path="data/processed", data_prefix="train", 
                                    batch_size=64):
@@ -20,6 +35,6 @@ def test_model_input_output_shapes(model=cnnModel(), data_path="data/processed",
     # take first random iteration of data
     input, labels = next(iter(data_loader))
     output = model.forward(input)
-    assert input.shape == torch.Size([batch_size, 1, 28, 28])
-    assert output.shape == torch.Size([batch_size, 10])
-    assert labels.shape == torch.Size([batch_size])
+    assert input.shape == torch.Size([batch_size, 1, 28, 28]), "Input shape is not [batch_size, 1, 28, 28]"
+    assert output.shape == torch.Size([batch_size, 10]), "Output shape is not [batch_size, 10]"
+    assert labels.shape == torch.Size([batch_size]), "Labels shape is not [batch_size]"
