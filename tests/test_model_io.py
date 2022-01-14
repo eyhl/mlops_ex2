@@ -19,6 +19,7 @@ def test_model_architecture(test_input, expected):
     assert eval(test_input) == expected, msg
 
 
+@pytest.mark.skipif(not os.path.exists('data/processed/train_images.pt'), reason="Data files not found")
 def test_model_input_output_shapes(model=cnnModel(), data_path="data/processed", data_prefix="train", 
                                    batch_size=64):
     
