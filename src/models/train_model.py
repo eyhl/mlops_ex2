@@ -80,7 +80,7 @@ class TrainOREvaluate(object):
         plt.savefig(os.path.join(args.save_plots_to, "training-loss-per-epoch.png"), dpi=200)
         plt.show()
 
-        # TODO: Save model
+        # Save model
         torch.save(model.state_dict(), os.path.join(args.save_model_to, "checkpoint.pth"))
 
     def evaluate(self):
