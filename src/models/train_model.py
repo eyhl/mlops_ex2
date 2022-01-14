@@ -19,7 +19,7 @@ from torch.utils.data.dataloader import DataLoader
 from src.data.make_dataset import mnistDataset
 
 
-def train(self):
+def train():
     # print("Training day and night")
     # parser = argparse.ArgumentParser(description="Training arguments")
     # parser.add_argument("save_model_to", default="models")
