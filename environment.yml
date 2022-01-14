@@ -1,0 +1,11 @@
+name: mlops_w5
+channels:
+  - pyg
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pytorch
+  - jupyter
+  - torchvision
+  - matplotlib
+prefix: /Users/eyhli/miniforge3/envs/mlops_w5
