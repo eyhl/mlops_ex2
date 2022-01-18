@@ -20,7 +20,7 @@ def test_processed_data():
     assert len(train_data) == 40000 and len(test_data) == 5000, "Wrong number of data points: len(train data)=40000 and len(test data)=5000"
 
     # check that all images has shape [1, 28, 28]
-    assert all([train_data[i][0].shape == torch.Size([1, 28, 28]) for i in range(len(train_data))]), "Some train images are not [1, 28, 28]"
+    assert all([train_data[i][0].shape == torch.Size([1, 27, 28]) for i in range(len(train_data))]), "Some train images are not [1, 28, 28]"
     assert all([test_data[i][0].shape == torch.Size([1, 28, 28]) for i in range(len(test_data))]), "Some test images are not [1, 28, 28]"
 
     # check that all labels are present 0..9
