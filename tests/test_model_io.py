@@ -36,6 +36,6 @@ def test_model_input_output_shapes(model=cnnModel(), data_path="data/processed",
     # take first random iteration of data
     input, labels = next(iter(data_loader))
     output = model.forward(input)
-    assert input.shape == torch.Size([batch_size, 1, 28, 28]), "Input shape is not [batch_size, 1, 28, 28]"
+    assert input.shape == torch.Size([batch_size, 1, 27, 28]), "Input shape is not [batch_size, 1, 28, 28]"
     assert output.shape == torch.Size([batch_size, 10]), "Output shape is not [batch_size, 10]"
     assert labels.shape == torch.Size([batch_size]), "Labels shape is not [batch_size]"
